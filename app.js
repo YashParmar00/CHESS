@@ -37,14 +37,16 @@ io.on("connection", (uniquesocket) => {
     uniquesocket.on("disconnect", () => {
         if(uniquesocket.id === players.white){
             delete players.white;
+            // Notify the other player that the white player disconnected
+            io.emit("playerDisconnected", "White player has disconnected. Please reset the game.");
         }
         else if(uniquesocket.id === players.black ){
             delete players.black;
+            // Notify the other player that the black player disconnected
+            io.emit("playerDisconnected", "Black player has disconnected. Please reset the game.");
         }
-        console.log(uniquesocket.id + " disconnect");
-        
+        console.log(uniquesocket.id + " disconnected");
     });
-
 
     uniquesocket.on("move", (move) => {
         try {
@@ -57,16 +59,22 @@ io.on("connection", (uniquesocket) => {
                 io.emit("move", move);
                 io.emit("boardState", chess.fen());
             }else{
-                console.log("Invalid move : ", move);
+                console.log("Invalid move: ", move);
                 uniquesocket.emit("invalidMove", move);
             }
         } catch (err) {
             console.log(err);
-            uniquesocket.emit("Invalid move : ", move);
+            uniquesocket.emit("Invalid move", move);
         }
-    })
-});
+    });
 
+    // **RESET GAME LOGIC**
+    uniquesocket.on("resetGame", () => {
+        // Reset the game to its initial state
+        chess.reset();  // This resets the chess game
+        io.emit("boardState", chess.fen());  // Emit the updated board state to both players
+    });
+});
 
 server.listen(3000, () => {
     console.log("Server started on port 3000");

@@ -124,4 +124,22 @@ socket.on("move", (move) => {
 });
 
 
+
 renderBoard();
+
+// Listen for "playerDisconnected" event to notify the other player
+socket.on("playerDisconnected", (message) => {
+    // Display a popup with the disconnect message
+    alert(message);  // You can replace this with any other custom pop-up style
+});
+
+// Emit event to reset the game when the "Start New Game" button is clicked
+document.getElementById("resetGameBtn").addEventListener("click", () => {
+    socket.emit("resetGame");
+});
+
+// Listen for "boardState" event to update the board state
+socket.on("boardState", (fen) => {
+    chess.load(fen);
+    renderBoard();
+});

@@ -62,9 +62,15 @@
     </style>
 </head>
 <body>
-    <div class="w-full h-screen flex items-center justify-center bg-zinc-900">
+    <div class="w-full h-screen flex flex-col items-center justify-center bg-zinc-900">
         <div class="chessboard w-96 h-96 bg-red-800"></div>
+        
+            <button id="resetGameBtn" class="mt-5 bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50">
+                Reset New Game
+            </button>
+        
     </div>
+    
     <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/chessGame.js"></script>
