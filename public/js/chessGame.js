@@ -1,3 +1,4 @@
+
 const socket = io();
 const chess = new Chess();
 const boardElement = document.querySelector(".chessboard");
@@ -126,6 +127,7 @@ socket.on("move", (move) => {
 
 
 renderBoard();
+
 
 // Listen for "playerDisconnected" event to notify the other player
 socket.on("playerDisconnected", (message) => {
